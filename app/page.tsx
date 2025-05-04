@@ -225,7 +225,7 @@ export default function Home() {
     
        <div
         ref={heroRef}
-        className="relative pt-12 min-h-screen flex flex-col items-center justify-center px-6 text-center overflow-hidden"
+        className="relative min-h-screen p-4 flex flex-col items-center justify-center px-6 text-center overflow-hidden"
       >
         <CursorTrail/>
         <motion.div
@@ -272,7 +272,7 @@ export default function Home() {
             
             <div
               key={idx}
-              className="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center hover:scale-105 transition-transform duration-300"
+              className="bg-white shadow-md rounded-2xl p-4 flex flex-col items-center hover:scale-105 transition-transform duration-300"
             >
               <div className="text-4xl">{item.avatar}</div>
               <div className="mt-4 text-xl font-semibold text-gray-700">
@@ -370,9 +370,27 @@ const Header = ({
   setHabitModalOpen: React.Dispatch<SetStateAction<boolean>>;
 }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isTop, setIsTop] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsTop(window.scrollY === 0);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <div className="w-full bg-opacity-50 backdrop-blur-md fixed top-0 z-50 px-6 py-4 flex justify-end items-center">
+    <div
+      className={`
+        w-full fixed top-0 z-50 px-6 py-4 flex justify-end items-center transition-colors duration-300',
+        ${
+          isTop?'bg-transparent':
+          'backdrop-blur-md'
+        }
+      `}
+    >
       {/* Right side */}
       {isLoggedIn ? (
         <div className="relative">
