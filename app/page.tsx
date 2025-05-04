@@ -113,9 +113,9 @@ export default function Home() {
 
     const storedUsers = localStorage.getItem("habit_users");
     if (storedUsers) {
-      console.log("storedUsers");
+    
       const parsedUsers = JSON.parse(storedUsers);
-      console.log(parsedUsers);
+  
       
       // Find the user who is currently logged in
       const activeUser = parsedUsers.find(
@@ -133,12 +133,6 @@ export default function Home() {
     }
     
   }, []);
-
-  useEffect(() => {
-    
-    console.log("habitttt",habitUsers);
-    
-  })
   
   const updateHabits = (updatedHabits: any[]) => {
     const usersJSON = localStorage.getItem("habit_users");
