@@ -282,7 +282,7 @@ export default function Home() {
             >
               <div className="text-4xl">{item.avatar}</div>
               <div className="mt-4 text-xl font-semibold text-gray-700">
-                {item.label}
+                {item.name}
               </div>
               <div className="text-sm text-gray-500">{item.dailyGoal}</div>
             </div>
@@ -469,7 +469,22 @@ type AuthModalProps = {
   isSignup?: boolean;
   onClose: () => void;
   onSuccess: (username: string) => void;
-  setHabitUsers: React.Dispatch<SetStateAction<object>>;
+  setHabitUsers: React.Dispatch<SetStateAction<{
+    username: string;
+    password: string;
+    lastHabitUpdate: string;
+    isloggedIn: boolean;
+    habits: {
+      name: string;
+      dailyGoal: string;
+      todayProgress: number;
+      weeklyProgress: never[];
+      monthlyProgress: never[];
+      avatar: string;
+      limit: number;
+      selected: boolean;
+    }[];
+  }>>
 };
 const defaultHabits = [
   {
@@ -1229,8 +1244,8 @@ const HabitsSection = ({
               selected === "Daily"
                 ? habit.todayProgress
                 : selected === "Weekly"
-                ? habit.weeklyProgress.reduce((a, b) => a + b, 0)
-                : habit.monthlyProgress.reduce((a, b) => a + b, 0);
+                ? habit.weeklyProgress.reduce((a:number, b:number) => a + b, 0)
+                : habit.monthlyProgress.reduce((a:number, b:number) => a + b, 0);
 
             const limit =
               selected === "Daily"
